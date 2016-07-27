@@ -2,15 +2,26 @@ package com.kinses22.MyCRH.web.controller;
 
 
 import com.kinses22.MyCRH.model.Student;
+import com.kinses22.MyCRH.service.ClassroomService;
+import com.kinses22.MyCRH.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class StudentController {
+
+    @Autowired
+    private ClassroomService classroomService;
+
+    @Autowired
+    private StudentService studentService;
 
     // Home page - index of all Students
     @RequestMapping("/")
@@ -19,17 +30,16 @@ public class StudentController {
         List<Student> students = new ArrayList<>();
 
         model.addAttribute("students", students);
-        return "gif/index";
+        return "student/index";
     }
 
     // Single Student page
     @RequestMapping("/students/{studentId}")
-    public String gifDetails(@PathVariable Long studentId, Model model) {
+    public String studentDetails(@PathVariable Long studentId, Model model) {
         // TODO: Get student whose id is studentID
-        Student student = null;
-
+        Student student = studentService.findById(studentId);
         model.addAttribute("student", student);
-        return "gif/student-details";
+        return "student/details";
     }
 
     // Student image data
@@ -37,23 +47,25 @@ public class StudentController {
     @ResponseBody
     public byte[] StudentImage(@PathVariable Long studentId) {
         // TODO: Return image data as byte array of the Student whose id is StudentId
-        return null;
+        return studentService.findById(studentId).getBytes();
     }
 
     // Upload a new Student Image
     @RequestMapping(value = "/students", method = RequestMethod.POST)
-    public String addStudent() {
+    public String addStudent(Student student, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
         // TODO: Upload new Student if data is valid
+        studentService.save(student, file);
 
         // TODO: Redirect browser to new Student's detail view
-        return null;
+        return String.format("redirect:/students/%s", student.getId());
     }
 
     // Form for uploading a new Student
     @RequestMapping("/upload")
-    public String formNewGif(Model model) {
+    public String formNewStudent(Model model) {
         // TODO: Add model attributes needed for new Student upload form
-
+        model.addAttribute("student", new Student());
+        model.addAttribute("classrooms", classroomService.getAllClassrooms());
         return "student/form";
     }
 

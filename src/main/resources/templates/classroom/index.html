@@ -11,7 +11,7 @@
                 <h2>Classroom</h2>
             </div>
             <div class="col s3">
-                <a class="right add" href="/classrooms/add-student">+</a>
+                <a class="right add" href="/classrooms/add-classroom">+</a>
             </div>
         </div>
         <div class="divider"></div>
@@ -20,8 +20,8 @@
                 <div class="card" style="background-color:#59b3b3">
                     <div class="card-content">
                         <div class="card-title">
-                         <a class="name" th:href="@{|/classrooms/${room.id}|}" th:text="${room.className}">Class</a>
-                            <a class="edit" th:href="@{|/classrooms/${room.id}/edit-student|}"><i class="hide-on-med-and-down material-icons">more_horiz</i><i class="hide-on-large-only medium material-icons">more_horiz</i></a>
+                         <a class="name" th:href="@{|/classrooms/${room.id}|}" th:text="${room.className}">Class Name</a>
+                            <a class="edit" th:href="@{|/classrooms/${room.id}/edit-classroom|}"><i class="hide-on-med-and-down material-icons">more_horiz</i><i class="hide-on-large-only medium material-icons">more_horiz</i></a>
                         </div>
                     </div>
                 </div>

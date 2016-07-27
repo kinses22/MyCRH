@@ -3,13 +3,18 @@ package com.kinses22.MyCRH.web.controller;
 import com.kinses22.MyCRH.model.Classroom;
 
 import com.kinses22.MyCRH.service.ClassroomService;
+import com.kinses22.MyCRH.web.Colour;
+import com.kinses22.MyCRH.web.feedbackMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,19 +41,22 @@ public class ClassroomController {
         Classroom classroom = null;
 
         model.addAttribute("classroom", classroom);
-        return "classroom/student-details";
+        return "classroom/details";
     }
 
     // Form for adding a new classroom
-    @RequestMapping("classrooms/add-student")
+    @RequestMapping("classrooms/add-classroom")
     public String formForNewClassroom(Model model) {
         // TODO: Add model attributes needed for new form
-
+        if(!model.containsAttribute("classroom")){
+        model.addAttribute("classroom",new Classroom());
+        }
+        model.addAttribute("colours", Colour.values());
         return "classroom/form";
     }
 
     // Form for editing an existing classroom
-    @RequestMapping("classrooms/{classroomID}/edit-student")
+    @RequestMapping("classrooms/{classroomID}/edit-classroom")
     public String formForEditingClassroom(@PathVariable Long classroomID, Model model) {
         // TODO: Add model attributes needed for edit form
 
@@ -66,11 +74,20 @@ public class ClassroomController {
 
     // Add a classroom
     @RequestMapping(value = "/classrooms", method = RequestMethod.POST)
-    public String addClassroom() {
-        // TODO: Add classroom if valid data was received
+    public String addClassroom(@Valid Classroom classroom, BindingResult res, RedirectAttributes redirectAttributes) {
 
+        // TODO: Add classroom if valid data was received
+        if(res.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.classroom", res);
+            redirectAttributes.addFlashAttribute("classroom", classroom);
+            return "redirect:/classrooms/add-classroom";
+        }
+
+            classroomService.save(classroom);
+
+            redirectAttributes.addFlashAttribute("flash", new feedbackMessages("Classroom Added Successfully", feedbackMessages.Status.PASS));
         // TODO: Redirect browser to /classrooms
-        return null;
+        return "redirect:/classrooms";
     }
 
     // Delete an existing category

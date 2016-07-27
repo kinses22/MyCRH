@@ -3,15 +3,13 @@
 <head th:replace="layout :: head('classrooms')"></head>
 <body>
     <div th:replace="layout :: nav"></div>
-    <div th:replace="layout :: searchbar"></div>
     <div th:replace="layout :: flash"></div>
     <div class="gifs container">
-        <h2 th:text="${category.name}" th:style="|color:${category.colorCode}|"></h2>
+        <h2 th:text="${classroom.className}" th:style="| colour :${classroom.color}|"></h2>
         <div class="row">
-            <div th:each="gif : ${category.gifs}" class="col s12 l4">
-                <a th:href="@{|/gifs/${gif.id}|}">
-                    <img th:src="@{|/gifs/${gif.id}.gif|}" />
-                    <a href="#" th:class="(${gif.favorite}? 'un' : '') + 'mark favorite'"></a>
+            <div th:each="student : ${classroom.students}" class="col s12 l4">
+                <a th:href="@{|/students/${student.id}|}">
+                    <img th:src="@{|/students/${student.id}.jpg|}" />
                 </a>
             </div>
         </div>
