@@ -2,8 +2,7 @@ package com.kinses22.MyCRH.web.controller;
 
 import com.kinses22.MyCRH.model.Classroom;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.kinses22.MyCRH.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +14,16 @@ import java.util.List;
 
 @Controller
 public class ClassroomController {
+
     @Autowired
-    private SessionFactory sessionFactory;
+    private ClassroomService classroomService;
 
     // Index of all classrooms
     @SuppressWarnings("unchecked")
     @RequestMapping("/classrooms")
     public String listClassrooms(Model model) {
 
-        Session session = sessionFactory.openSession();
-        List<Classroom> classrooms = session.createCriteria(Classroom.class).list();
+        List<Classroom> classrooms = classroomService.getAllClassrooms();
 
         model.addAttribute("classrooms",classrooms);
         return "classroom/index";
