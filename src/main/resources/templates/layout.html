@@ -26,13 +26,13 @@
             <ul class="right hide-on-med-and-down">
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/upload') ? 'active' : ''}"><a th:href="@{/upload}">New Student</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Students</a></li>
-                <li th:classappend="${#httpServletRequest.servletPath.equals('/categories') ? 'active' : ''}"><a th:href="@{/classrooms}">Classrooms</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/classrooms') ? 'active' : ''}"><a th:href="@{/classrooms}">Classrooms</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/favorites') ? 'active' : ''}"><a th:href="@{/favorites}">Sign-In/Up</a></li>
             </ul>
             <ul id="mobile-nav" class="side-nav">
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/upload') ? 'active' : ''}"><a th:href="@{/upload}">New Student</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Students</a></li>
-                <li th:classappend="${#httpServletRequest.servletPath.equals('/categories') ? 'active' : ''}"><a th:href="@{/classrooms}">Classrooms</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/classrooms') ? 'active' : ''}"><a th:href="@{/classrooms}">Classrooms</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/favorites') ? 'active' : ''}"><a th:href="@{/favorites}">Sign-In/Up</a></li>
             </ul>
         </div>

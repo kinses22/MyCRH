@@ -16,12 +16,12 @@
         </div>
         <div class="divider"></div>
         <div class="row">
-            <div th:each="cat : ${classrooms}" class="col s12 l4">
+            <div th:each=" room : ${classrooms}" class="col s12 l4">
                 <div class="card" style="background-color:#59b3b3">
                     <div class="card-content">
                         <div class="card-title">
-                            <a class="name" th:href="@{|/classrooms/${classroom.id}|}" th:text="${classroom.className}">Category Name</a>
-                            <a class="edit" th:href="@{|/classrooms/${classroom.id}/edit-student|}"><i class="hide-on-med-and-down material-icons">more_horiz</i><i class="hide-on-large-only medium material-icons">more_horiz</i></a>
+                         <a class="name" th:href="@{|/classrooms/${room.id}|}" th:text="${room.className}">Class</a>
+                            <a class="edit" th:href="@{|/classrooms/${room.id}/edit-student|}"><i class="hide-on-med-and-down material-icons">more_horiz</i><i class="hide-on-large-only medium material-icons">more_horiz</i></a>
                         </div>
                     </div>
                 </div>
