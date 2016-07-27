@@ -8,8 +8,9 @@ import java.util.List;
 public class Classroom {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String className;
     private String color;
 
