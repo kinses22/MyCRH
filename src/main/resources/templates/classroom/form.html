@@ -5,10 +5,11 @@
 <div th:replace="layout :: nav"></div>
 <div th:replace="layout :: flash"></div>
 <div class="container">
-    <form th:action="@{/classrooms}" method="post" th:object="${classroom}">
+    <form th:action="@{${action}}" method="post" th:object="${classroom}">
+        <input type="hidden" th:field="*{id}" />
         <div class="row">
             <div class="col s12">
-                <h2>Add Classroom</h2>
+                <h2 th:text="${heading}">Add Classroom</h2>
             </div>
         </div>
         <div class="divider"></div>
@@ -31,7 +32,7 @@
            </div>
            <div class="row">
                <div class="col s12 l8">
-                   <button type="submit" class="button">Add</button>
+                   <button th:text="${submit}" type="submit" class="button">Add</button>
                    <a th:href="@{/classrooms}" class="button">Cancel</a>
                </div>
            </div>

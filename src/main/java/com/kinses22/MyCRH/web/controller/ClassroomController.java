@@ -12,9 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.List;
 
 @Controller
@@ -51,7 +53,13 @@ public class ClassroomController {
         if(!model.containsAttribute("classroom")){
         model.addAttribute("classroom",new Classroom());
         }
+        model.addAttribute("action", "/classrooms");
+        model.addAttribute("heading", "New classroom");
+        model.addAttribute("submit", "Add");
         model.addAttribute("colours", Colour.values());
+
+
+
         return "classroom/form";
     }
 
@@ -59,17 +67,32 @@ public class ClassroomController {
     @RequestMapping("classrooms/{classroomID}/edit-classroom")
     public String formForEditingClassroom(@PathVariable Long classroomID, Model model) {
         // TODO: Add model attributes needed for edit form
-
+        if(!model.containsAttribute("classroom")){
+            model.addAttribute("classroom",classroomService.findByClassroomID(classroomID));
+        }
+        model.addAttribute("action", String.format("/classrooms/%s", classroomID));
+        model.addAttribute("heading", "Edit classroom");
+        model.addAttribute("submit", "Edit");
+        model.addAttribute("colours", Colour.values());
         return "classroom/form";
     }
 
     // Update an existing classroom
     @RequestMapping(value = "/classrooms/{classroomID}", method = RequestMethod.POST)
-    public String updateClassroom() {
+    public String updateClassroom(@Valid Classroom classroom, RedirectAttributes redirectAttributes, BindingResult res) {
         // TODO: Update classroom if valid data was received
+        // TODO: Add classroom if valid data was received
+        if(res.hasErrors()){
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.classroom", res);
+            redirectAttributes.addFlashAttribute("classroom", classroom);
+            return String.format("redirect:/classrooms/%s/edit-classroom", classroom.getId());
+        }
 
-        // TODO: Redirect browser to /categories
-        return null;
+        classroomService.save(classroom);
+
+        redirectAttributes.addFlashAttribute("flash", new feedbackMessages("Classroom Updated Successfully", feedbackMessages.Status.PASS));
+        // TODO: Redirect browser to /classrooms
+        return "redirect:/classrooms";
     }
 
     // Add a classroom
