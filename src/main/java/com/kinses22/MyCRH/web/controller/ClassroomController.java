@@ -40,7 +40,7 @@ public class ClassroomController {
     @RequestMapping("/classrooms/{classroomID}")
     public String classroom(@PathVariable Long classroomID, Model model) {
         // TODO: Get the classroom given by classroomID
-        Classroom classroom = null;
+        Classroom classroom = classroomService.findByClassroomID(classroomID);
 
         model.addAttribute("classroom", classroom);
         return "classroom/details";
@@ -117,8 +117,14 @@ public class ClassroomController {
     @RequestMapping(value = "/classrooms/{classroomID}/delete", method = RequestMethod.POST)
     public String deleteClassroom(@PathVariable Long classroomID) {
         // TODO: Delete classroom if it contains no GIFs
+        Classroom classroom = classroomService.findByClassroomID(classroomID);
+        if(classroom.getStudents().size() > 0){
+            return String.format("redirect:/classrooms/%s/edit-classroom", classroomID);
 
+        }
+            classroomService.detele(classroom);
         // TODO: Redirect browser to /classrooms
-        return null;
+
+        return "redirect:/classrooms";
     }
 }

@@ -8,13 +8,11 @@
 <div th:replace="layout :: searchbar"></div>
 <div th:replace="layout :: flash"></div>
 <div class="gifs container">
+    <h2></h2>
     <div class="row">
-        <div th:each="student : ${gifs}" class="col s12 l4">
-            <a th:href="@{|/gifs/${gif.id}|}" class="actions">
-                <img th:src="@{|/gifs/${gif.id}.gif|}" alt="gif" />
-                <form th:action="@{|/gifs/${gif.id}/favorite|}" method="post">
-                    <button type="submit" th:class="(${gif.favorite}? 'un' : '') + 'mark favorite'"></button>
-                </form>
+        <div th:each="student : ${students}" class="col s12 l4">
+            <a th:href="@{|/students/${student.id}|}" class="actions">
+                <img th:src="@{|/students/${student.id}.jpg|}" alt="student" />
             </a>
         </div>
     </div>

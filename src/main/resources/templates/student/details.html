@@ -14,11 +14,13 @@
     </div>
     <div class="meta row">
         <div class="col s10 l11 push-l1">
-            <h4 th:text="${student.firstName}"></h4>
+            <h4 th:text="|Student Name: ${student.firstName} ${student.secondName}|"></h4>
+            <h4 th:text="|Student Nationality: ${student.nationality}|"></h4>
+            <h4 th:text="|Student Email: ${student.email}|"></h4>
+            <h4 th:text="|Student Passport Number: ${student.passportNumber}|"></h4>
+
             <div>
-                <span class="user" th:text="|${student.firstName} is ${student.nationality}|"></span>
-                <!-- TODO: fix this, and figure out a way to display student details properly -->
-           <!--     <span class="category"><a th:href="@{|/classrooms/${student.classroom.id}|}" th:text="${student.classroom.firstName}"></a></span> -->
+                <span class="classroom"><a th:href="@{|/classrooms/${student.classroom.id}|}" th:text="|Classroom: ${student.classroom.className}|"></a></span>
                 <div class="actions">
                     <a th:href="@{|/students/${student.id}/edit|}">Edit</a>
                     <form th:action="@{|/students/${student.id}/delete|}" method="post">
@@ -27,21 +29,10 @@
                 </div>
             </div>
         </div>
-        <div class="col s2 l1 pull-l11">
-            <img class="circle" th:src="@{/images/me.jpg}" alt="avatar" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 l11 offset-l1">
-            <div class="divider"></div>
-        </div>
-        <div class="col s12 l8 offset-l1">
-            <div class="share">
-                <a class="btn right" href="#">Copy</a>
-            </div>
-        </div>
     </div>
 </div>
+
+
 <div th:replace="layout :: scripts"></div>
 </body>
 </html>
