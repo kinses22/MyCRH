@@ -1,4 +1,4 @@
-package com.kinses22.MyCRH.web.controller;
+package com.kinses22.MyCRH;
 
 import com.kinses22.MyCRH.model.Classroom;
 

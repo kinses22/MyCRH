@@ -1,4 +1,4 @@
-package com.kinses22.MyCRH.web.controller;
+package com.kinses22.MyCRH;
 
 
 import com.kinses22.MyCRH.model.Student;
@@ -25,7 +25,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    // Home page - index of all Students
+    // Home page - index of all Students -- TESTED.
     @RequestMapping("/")
     public String listStudents(Model model) {
         // TODO: Get all students
@@ -35,11 +35,12 @@ public class StudentController {
         return "student/index";
     }
 
-    // Single Student page
+    // Single Student page -- TESTED
     @RequestMapping("/students/{studentId}")
     public String studentDetails(@PathVariable Long studentId, Model model) {
         // TODO: Get student whose id is studentID
         Student student = studentService.findById(studentId);
+
         model.addAttribute("student", student);
         return "student/details";
     }
