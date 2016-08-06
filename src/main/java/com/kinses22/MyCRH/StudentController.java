@@ -66,7 +66,7 @@ public class StudentController {
     // Form for uploading a new Student
     @RequestMapping("/upload")
     public String formNewStudent(Model model) {
-        // TODO: Add model attributes needed for new Student upload form
+
        if(!model.containsAttribute("student")) {
            model.addAttribute("student", new Student());
        }
